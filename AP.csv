@@ -1,0 +1,5 @@
+﻿name,description,accessType,daclName,authzProfileType,vlannameID,WebRedirectionType,acl,portalName,
+QA_IP_PHONE,Wired_MAB,ACCESS_ACCEPT,PAW_PHY_Limited_ACL,SWITCH,4,,,,
+QA_F4_DATA,DATA access for HQ Floor1,ACCESS_ACCEPT,PAW_PHY_Limited_ACL,SWITCH,4,,,,
+QA_F4_DATA_POSTURE,Postureing for Floor1,ACCESS_ACCEPT,PAW_PHY_Limited_ACL,SWITCH,4,ClientProvisioning,iseredirect,Client Provisioning Portal (default),
+
