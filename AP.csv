@@ -1,5 +1,6 @@
-﻿name,description,accessType,daclName,authzProfileType,vlannameID,WebRedirectionType,acl,portalName,
-QA_IP_PHONE,Wired_MAB,ACCESS_ACCEPT,PAW_PHY_Limited_ACL,SWITCH,4,,,,
-QA_F4_DATA,DATA access for HQ Floor1,ACCESS_ACCEPT,PAW_PHY_Limited_ACL,SWITCH,4,,,,
-QA_F4_DATA_POSTURE,Postureing for Floor1,ACCESS_ACCEPT,PAW_PHY_Limited_ACL,SWITCH,4,ClientProvisioning,iseredirect,Client Provisioning Portal (default),
+name,description,accessType,daclName,authzProfileType,voiceDomainPermission,vlannameID,WebRedirectionType,acl,portalName,
+HQ_IP_PHONE,Voice for HQ,ACCESS_ACCEPT,,,True,50,,,,
+HQ_DATA_F1,DATA access for HQ Floor1,ACCESS_ACCEPT,,SWITCH,,10,,,,
+HQ_DATA_F1_Machine,DATA machine access for HQ Floor1,ACCESS_ACCEPT,PAW_PHY_Limited_ACL,SWITCH,,10,,,,
+HQ_DATA_F1_POSTURE,Postureing for HQ Floor1,ACCESS_ACCEPT,PAW_PHY_Limited_ACL,SWITCH,,10,ClientProvisioning,iseredirect,Client Provisioning Portal (default),
 
