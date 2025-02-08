@@ -19,7 +19,6 @@ def test_credentials(headers, ise_api_url):
     print(f"Testing credentials with URL: {test_url}")
     response = requests.get(test_url, headers=headers, verify=False)
     print(f"Response status code: {response.status_code}")
-    #print(f"Response text: {response.text}")
     if response.status_code == 200:
         print(" ====== Credentials are valid.=====")
         return True
@@ -38,7 +37,7 @@ def create_authorization_profile(profile_data, headers, ise_api_url):
 
 def main():
     username, password = get_credentials()
-    ise_server_ip = input("Enter the IP address of the ISE PAN Node: ")
+    ise_server_ip = input("Provide ISE PAN IP: ")
     ise_api_url = f"https://{ise_server_ip}:9060/ers/config/authorizationprofile"
     
     # Encode the credentials for Basic Authentication
@@ -55,7 +54,7 @@ def main():
         return
 
     mandatory_fields = ["name", "accessType"]
-    optional_fields = ["description", "daclName", "authzProfileType", "vlan_nameID", "WebRedirectionType", "acl", "portalName"]
+    optional_fields = ["description", "daclName", "authzProfileType", "vlan_nameID", "WebRedirectionType", "acl", "portalName", "voiceDomainPermission"]
 
     with open('AP.csv', mode='r', encoding='utf-8-sig') as file:
         csv_reader = csv.DictReader(file)
@@ -85,18 +84,18 @@ def main():
                 for field in optional_fields:
                     if row.get(field):
                         if field == "vlan_nameID":
-                            profile_data["AuthorizationProfile"]["vlan"] = {"nameID": row.get(field)}
+                            profile_data["AuthorizationProfile"]["vlan"] = {"nameID": row.get(field), "tagID":"1"}
                         elif field == "WebRedirectionType":
                             profile_data["AuthorizationProfile"]["webRedirection"] = {
                                 "WebRedirectionType": row.get(field),
                                 "acl": row.get("acl", ""),
                                 "portalName": row.get("portalName", "")
                             }
+                        elif field == "voiceDomainPermission":
+                            profile_data["AuthorizationProfile"]["voiceDomainPermission"] = True
                         elif field not in ["acl", "portalName"]:  # Exclude acl and portalName from being added directly
                             profile_data["AuthorizationProfile"][field] = row.get(field)
                 create_authorization_profile(profile_data, headers, ise_api_url)
-            else:
-                print(f"Missing mandatory field in CSV: {row}")
 
 if __name__ == "__main__":
     main()
