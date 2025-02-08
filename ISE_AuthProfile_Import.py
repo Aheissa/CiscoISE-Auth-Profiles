@@ -9,6 +9,8 @@ from urllib3.exceptions import InsecureRequestWarning
 # Suppress only the single InsecureRequestWarning from urllib3 needed
 warnings.simplefilter('ignore', InsecureRequestWarning)
 
+print(" ====== Ensure you have reviewed and Validated AP.CSV File.=====")
+
 def get_credentials():
     username = input("Enter your username: ")
     password = getpass.getpass("Enter your password: ")
@@ -37,7 +39,7 @@ def create_authorization_profile(profile_data, headers, ise_api_url):
 
 def main():
     username, password = get_credentials()
-    ise_server_ip = input("Provide ISE PAN IP: ")
+    ise_server_ip = input("Input ISE PAN IP: ")
     ise_api_url = f"https://{ise_server_ip}:9060/ers/config/authorizationprofile"
     
     # Encode the credentials for Basic Authentication
@@ -54,7 +56,7 @@ def main():
         return
 
     mandatory_fields = ["name", "accessType"]
-    optional_fields = ["description", "daclName", "authzProfileType", "vlan_nameID", "WebRedirectionType", "acl", "portalName", "voiceDomainPermission"]
+    optional_fields = ["description", "daclName", "authzProfileType", "vlannameID", "WebRedirectionType", "acl", "portalName", "voiceDomainPermission"]
 
     with open('AP.csv', mode='r', encoding='utf-8-sig') as file:
         csv_reader = csv.DictReader(file)
@@ -83,8 +85,8 @@ def main():
                 }
                 for field in optional_fields:
                     if row.get(field):
-                        if field == "vlan_nameID":
-                            profile_data["AuthorizationProfile"]["vlan"] = {"nameID": row.get(field), "tagID":"1"}
+                        if field == "vlannameID":
+                            profile_data["AuthorizationProfile"]["vlan"] = {"nameID": row.get(field), "tagID": "1"}
                         elif field == "WebRedirectionType":
                             profile_data["AuthorizationProfile"]["webRedirection"] = {
                                 "WebRedirectionType": row.get(field),
